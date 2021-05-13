@@ -1,15 +1,46 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useContext, useEffect, useState, Fragment } from "react";
+import { Context } from "../store/appContext.js";
+//import { Navbar } from "../component/navbar.js";
+import { CharactersCard } from "../component/charactersCard.js";
+import { GenericCard } from "../component/card.js";
+import { Link } from "react-router-dom";
 import "../../styles/home.scss";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+const Home = () => {
+	const { store, actions } = useContext(Context);
+	const [charactersList, setCharactersList] = useState([]);
+
+	console.log(store.characters);
+	// useEffect(
+	// 	() => {
+	// 		if (store.characters) {
+	// 			setCharactersList(
+	// 				store.characters.map((character, index) => {
+	// 					//return <li key={index.toString()}>{character.name}</li>;
+	// 					return <GenericCard key={index} />;
+	// 				})
+	// 			);
+	// 		} else {
+	// 			{
+	// 				<h1>Esta vacio</h1>;
+	// 			}
+	// 		}
+	// 	},
+	// 	[store.characters]
+	// );
+
+	return (
+		<>
+			<h1>Home</h1>
+			{store.characters.map((character, index) => {
+				//return <li key={index.toString()}>{character.name}</li>;
+				return <GenericCard key={index} />;
+			})}
+			<Link to="/planets">
+				<button className="">Ver más</button>
+			</Link>
+		</>
+	);
+};
+
+export default Home;
